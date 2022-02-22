@@ -26,10 +26,15 @@ namespace AdvertAPI.Services
             dbModel.Created = DateTime.UtcNow;
             dbModel.Status = AdvertStatus.Pending;
 
-            //var table = await _client.DescribeTableAsync("Adverts");
             await _context.SaveAsync(dbModel);
 
             return dbModel.Id;
+        }
+
+        public async Task<bool> CheckHealthAsync()
+        {
+            var table = await _client.DescribeTableAsync("Adverts");
+            return table.Table.TableStatus == TableStatus.ACTIVE;
         }
 
         public async Task<bool> ConfirmAsync(ConfirmAdvertModel confirmation)
@@ -41,7 +46,7 @@ namespace AdvertAPI.Services
             }
             if (confirmation.Status == AdvertStatus.Active)
             {
-                //record.FilePath = confirmation.FilePath;
+                record.FilePath = confirmation.FilePath;
                 record.Status = AdvertStatus.Active;
                 await _context.SaveAsync(record);
                 return true;

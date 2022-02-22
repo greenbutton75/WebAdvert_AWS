@@ -6,7 +6,8 @@ using Microsoft.AspNetCore.Mvc;
 namespace AdvertAPI.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("adverts/v1")]
+    [Produces("application/json")]
     public class AdvertAPIController : ControllerBase
     {
 
@@ -20,11 +21,12 @@ namespace AdvertAPI.Controllers
         }
 
         [HttpGet]
-        [Route("{id}")]
+        [Route("{id}", Name = "Get")]
         [ProducesResponseType(404)]
         [ProducesResponseType(200)]
         public async Task<IActionResult> Get(string id)
         {
+            _logger.LogInformation("Get");
             try
             {
                 var advert = await _storage.GetByIdAsync(id);
@@ -34,8 +36,9 @@ namespace AdvertAPI.Controllers
             {
                 return new NotFoundResult();
             }
-            catch (Exception)
+            catch (Exception exception)
             {
+                _logger.LogError(exception.Message);
                 return new StatusCodeResult(500);
             }
         }
@@ -47,15 +50,17 @@ namespace AdvertAPI.Controllers
         [EnableCors("AllOrigin")]
         public async Task<IActionResult> All()
         {
+            _logger.LogInformation("All");
             return new JsonResult(await _storage.GetAllAsync());
         }
         
         [HttpPost]
         [Route("Create")]
         [ProducesResponseType(404)]
-        [ProducesResponseType(201, Type = typeof(CreateAdvertResponse))]
+        [ProducesResponseType(201)]
         public async Task<IActionResult> Create(AdvertModel model)
         {
+            _logger.LogInformation("Create");
             string recordId;
             try
             {
@@ -67,10 +72,11 @@ namespace AdvertAPI.Controllers
             }
             catch (Exception exception)
             {
+                _logger.LogError(exception.Message);
                 return StatusCode(500, exception.Message);
             }
 
-            return StatusCode(201, new CreateAdvertResponse { Id = recordId });
+            return CreatedAtRoute(nameof(Get), new { id = recordId }, model);
         }
 
         [HttpPut]
@@ -79,6 +85,7 @@ namespace AdvertAPI.Controllers
         [ProducesResponseType(200)]
         public async Task<IActionResult> Confirm(ConfirmAdvertModel model)
         {
+            _logger.LogInformation("Confirm");
             try
             {
                 await _storage.ConfirmAsync(model);
@@ -90,6 +97,7 @@ namespace AdvertAPI.Controllers
             }
             catch (Exception exception)
             {
+                _logger.LogError(exception.Message);
                 return StatusCode(500, exception.Message);
             }
 

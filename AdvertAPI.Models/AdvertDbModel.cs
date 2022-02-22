@@ -22,5 +22,9 @@ namespace AdvertAPI.Models
         public double Price { get; set; }
         [DynamoDBProperty]
         public AdvertStatus Status { get; set; }
+        [DynamoDBProperty] 
+        public string FilePath { get; set; }
+        [DynamoDBProperty]
+        public string UserName { get; set; }
     }
 }

@@ -1,3 +1,9 @@
+using WebAdvert.Web.ServiceClients;
+using WebAdvert.Web.Services;
+using Polly;
+using Polly.Extensions.Http;
+using System.Net;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -18,8 +24,25 @@ builder.Services.AddCognitoIdentity(config =>
 
 builder.Services.ConfigureApplicationCookie(configure =>
 {
-    configure.LoginPath = "Accounts/Login";
+    configure.LoginPath = "/Accounts/Login";
 });
+
+builder.Services.AddTransient<IFileUploader, S3FileUploader>();
+
+builder.Services.AddHttpClient<IAdvertApiClient, AdvertApiClient>().AddPolicyHandler(GetRetryPolicy()).AddPolicyHandler(GetCircuitBreakerPatternPolicy());
+
+
+IAsyncPolicy<HttpResponseMessage> GetCircuitBreakerPatternPolicy()
+{
+    return HttpPolicyExtensions.HandleTransientHttpError().CircuitBreakerAsync(3, TimeSpan.FromSeconds(30));
+}
+
+IAsyncPolicy<HttpResponseMessage> GetRetryPolicy()
+{
+    return HttpPolicyExtensions.HandleTransientHttpError()
+        .OrResult(msg => msg.StatusCode == HttpStatusCode.NotFound)
+        .WaitAndRetryAsync(5, retryAttempy => TimeSpan.FromSeconds(Math.Pow(2, retryAttempy)));
+}
 
 
 var app = builder.Build();
