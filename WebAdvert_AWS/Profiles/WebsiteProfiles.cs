@@ -2,6 +2,7 @@ using AdvertAPI.Models;
 using AutoMapper;
 using WebAdvert.Web.Models;
 using WebAdvert.Web.Models.AdvertManagement;
+using WebAdvert.Web.Models.Home;
 using WebAdvert.Web.ServiceClients;
 //using WebAdvert.Web.Models.Home;
 //using WebAdvert.Web.ServiceClients;
@@ -16,7 +17,7 @@ namespace WebAdvert.Web.Profiles
             CreateMap<CreateAdvertModel, CreateAdvertViewModel>().ReverseMap();
 
             CreateMap<AdvertModel, Advertisement>().ReverseMap();
-/*
+
             CreateMap<Advertisement, IndexViewModel>()
                 .ForMember(
                     dest => dest.Title, src => src.MapFrom(field => field.Title))
@@ -27,7 +28,7 @@ namespace WebAdvert.Web.Profiles
                     dest => dest.Id, src => src.MapFrom(field => field.Id))
                 .ForMember(
                     dest => dest.Title, src => src.MapFrom(field => field.Title));
-            */
+            
         }
     }
 }

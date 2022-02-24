@@ -30,7 +30,8 @@ builder.Services.ConfigureApplicationCookie(configure =>
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 builder.Services.AddTransient<IFileUploader, S3FileUploader>();
 
-builder.Services.AddHttpClient<IAdvertApiClient, AdvertApiClient>().AddPolicyHandler(GetRetryPolicy()).AddPolicyHandler(GetCircuitBreakerPatternPolicy());
+builder.Services.AddHttpClient<IAdvertApiClient, AdvertApiClient>();//.AddPolicyHandler(GetRetryPolicy()).AddPolicyHandler(GetCircuitBreakerPatternPolicy());
+builder.Services.AddHttpClient<ISearchApiClient, SearchApiClient>();//.AddPolicyHandler(GetRetryPolicy()).AddPolicyHandler(GetCircuitBreakerPatternPolicy());
 
 
 IAsyncPolicy<HttpResponseMessage> GetCircuitBreakerPatternPolicy()
@@ -63,6 +64,6 @@ app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+   pattern: "{controller=Home}/{action=Index}/{id?}");
 
 app.Run();
