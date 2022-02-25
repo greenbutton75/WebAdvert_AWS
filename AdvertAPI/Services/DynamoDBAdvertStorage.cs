@@ -44,19 +44,19 @@ namespace AdvertAPI.Services
             {
                 throw new KeyNotFoundException($"Record with id ={confirmation.Id} not found");
             }
-            if (confirmation.Status == AdvertStatus.Active)
+            //if (confirmation.Status == AdvertStatus.Active)
             {
                 record.FilePath = confirmation.FilePath;
                 record.Status = AdvertStatus.Active;
                 await _context.SaveAsync(record);
                 return true;
             }
-            else
-            {
-                await _context.DeleteAsync(record);
-                return true;
-            }
-            return false;
+            //else
+            //{
+            //    await _context.DeleteAsync(record);
+            //    return true;
+            //}
+            //return false;
         }
 
         public async Task<List<AdvertModel>> GetAllAsync()

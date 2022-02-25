@@ -81,7 +81,7 @@ namespace AdvertAPI.Controllers
                 return StatusCode(500, exception.Message);
             }
 
-            return CreatedAtRoute(nameof(Get), new { id = recordId }, model);
+            return StatusCode(201, new CreateAdvertResponse { Id = recordId });
         }
 
         [HttpPut]

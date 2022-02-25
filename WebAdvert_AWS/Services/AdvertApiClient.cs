@@ -30,8 +30,8 @@ namespace WebAdvert.Web.ServiceClients
         {
             var advertApiModel = _mapper.Map<AdvertModel>(model);
 
-            var jsonModel = JsonSerializer.Serialize(advertApiModel);
-            var response = await _client.PostAsync(new Uri($"{_baseAddress}/create"),
+            var jsonModel = JsonSerializer.Serialize(advertApiModel, new JsonSerializerOptions( ));
+            var response = await _client.PostAsync(new Uri($"{_baseAddress}/Create"),
                 new StringContent(jsonModel, Encoding.UTF8, "application/json")).ConfigureAwait(false);
             var createAdvertResponse = await response.Content.ReadFromJsonAsync<CreateAdvertResponse>().ConfigureAwait(false);
             var advertResponse = _mapper.Map<AdvertResponse>(createAdvertResponse);
