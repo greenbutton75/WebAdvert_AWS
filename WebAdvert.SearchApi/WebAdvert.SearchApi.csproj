@@ -10,6 +10,7 @@
     <PackageReference Include="AWS.Logger.AspNetCore" Version="3.2.0" />
     <PackageReference Include="NEST" Version="7.17.0" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
+    <PackageReference Include="Microsoft.AspNetCore.Diagnostics.HealthChecks" Version="2.2.0" />
   </ItemGroup>
 
 

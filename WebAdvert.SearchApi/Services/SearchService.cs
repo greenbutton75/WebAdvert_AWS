@@ -23,5 +23,13 @@ namespace WebAdvert.SearchApi.Services
 
             return searchResponse.Hits.Select(hit => hit.Source).ToList();
         }
+
+        public bool CheckHealth()
+        {
+            var res = _client.Ping();
+
+            return res.IsValid;
+        }
+
     }
 }

@@ -1,3 +1,4 @@
+using AdvertAPI.HealthChecks;
 using Microsoft.Extensions.Configuration;
 using WebAdvert.SearchApi.Extensions;
 using WebAdvert.SearchApi.Services;
@@ -14,6 +15,8 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddElasticSearch(builder.Configuration);
 builder.Services.AddTransient<ISearchService, SearchService>();
+
+builder.Services.AddHealthChecks().AddCheck<StorageHealthCheck>("Storage");
 
 builder.Logging.AddAWSProvider(builder.Configuration.GetAWSLoggingConfigSection(),
                 formatter: (loglevel, message, exception) => $"[{DateTime.Now} {loglevel} {message} {exception?.Message} {exception?.StackTrace}");
@@ -34,6 +37,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 app.UseCors();
+app.UseHealthChecks("/health");
 
 app.UseAuthorization();
 
