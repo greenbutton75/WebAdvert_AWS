@@ -9,7 +9,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AdvertAPI", "AdvertAPI\Adve
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AdvertAPI.Models", "AdvertAPI.Models\AdvertAPI.Models.csproj", "{C7C057FD-B70A-4E11-9A42-EA1D51890CAF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SearchWorkerLambda", "SearchWorkerLambda\SearchWorkerLambda.csproj", "{23C3EA81-A041-42CC-A180-13FCE806DE59}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SearchWorkerLambda", "SearchWorkerLambda\SearchWorkerLambda.csproj", "{23C3EA81-A041-42CC-A180-13FCE806DE59}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebAdvert.SearchApi", "WebAdvert.SearchApi\WebAdvert.SearchApi.csproj", "{68C734A3-451B-4E1E-B53B-67FD63A00F74}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{23C3EA81-A041-42CC-A180-13FCE806DE59}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{23C3EA81-A041-42CC-A180-13FCE806DE59}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{23C3EA81-A041-42CC-A180-13FCE806DE59}.Release|Any CPU.Build.0 = Release|Any CPU
+		{68C734A3-451B-4E1E-B53B-67FD63A00F74}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{68C734A3-451B-4E1E-B53B-67FD63A00F74}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{68C734A3-451B-4E1E-B53B-67FD63A00F74}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{68C734A3-451B-4E1E-B53B-67FD63A00F74}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
